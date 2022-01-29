@@ -10,18 +10,15 @@ public class BoardController : MonoBehaviour
     // 盤面の縦幅のマス数(とりあえず10マス)
     [SerializeField] private int boardHeight;
 
-    [SerializeField] private List<BoardPosition> territoryPositions;
-
     [SerializeField] private GridLayoutGroup boardGridLayoutGroup;
     [SerializeField] private GameObject gridSquareObject;
 
-    // 各駒の初期配置の位置を定義
-    [SerializeField] private List<PiecePosition> defaultPieces;
+    // 自分の手番
+	[SerializeField] private Player myPlayer;
+	// 相手の手番
+	[SerializeField] private Player opponentPlayer;
 
-    private List<Square> allGridSquares = new List<Square>();
-    private List<Piece> pieces = new List<Piece>();
-
-    private Square selectingSquare = null;
+	private List<Square> allGridSquares = new List<Square>();
 
     private void GenerateBoardGrid()
     {
@@ -36,24 +33,10 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    private void SpawnPieaces()
-    {
-        foreach(PiecePosition piecePosition in defaultPieces)
-        {
-            Square gridSquare = allGridSquares.Find(g => g.boardPosition.x == piecePosition.position.x && g.boardPosition.y == piecePosition.position.y);
-            if(gridSquare != null)
-            {
-                Piece piece = ComponentUtil.InstantiateTo<Piece>(gridSquare.gameObject, piecePosition.pieceObj.gameObject);
-                piece.Initialize(gridSquare.boardPosition.x, gridSquare.boardPosition.y);
-                pieces.Add(piece);
-            }
-        }
-    }
-
     // マス目を全て初期状態にする
 	private void ChangeAllSquareNormalState()
 	{
-		this.selectingSquare = null;
+		GameController.Instance.SelectingSquare = null;
 		foreach (Square movableSquare in allGridSquares)
 		{
 			movableSquare.ChangeStateWithGraphic(SquareState.Normal);
@@ -68,14 +51,14 @@ public class BoardController : MonoBehaviour
 			this.ChangeAllSquareNormalState();
 			return;
 		}
-        if(this.selectingSquare == null)
+        if(GameController.Instance.SelectingSquare == null)
 		{
-			Piece clickedPiece = pieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
+            Piece clickedPiece = myPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
 			if (clickedPiece != null)
 			{
 				clickedSquare.ChangeStateWithGraphic(SquareState.Selecting);
-				this.selectingSquare = clickedSquare;
-				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, pieces);
+                GameController.Instance.SelectingSquare = clickedSquare;
+				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, myPlayer.CurrentPieces);
 				foreach (Square movableSquare in movableSquares)
 				{
 					movableSquare.ChangeStateWithGraphic(SquareState.Movable);
@@ -85,27 +68,22 @@ public class BoardController : MonoBehaviour
 		else
 		{
             if(clickedSquare.CurrentState == SquareState.Movable || clickedSquare.CurrentState == SquareState.MovableHovering)
-			{
-				Piece movePiece = pieces.Find(p => p.CurrentPosition.x == this.selectingSquare.boardPosition.x && p.CurrentPosition.y == this.selectingSquare.boardPosition.y);
+            {
+                BoardPosition selectingSquareBoardPosition = GameController.Instance.SelectingSquare.boardPosition;
+                Piece movePiece = myPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == selectingSquareBoardPosition.x && p.CurrentPosition.y == selectingSquareBoardPosition.y);
 				movePiece.Move(clickedSquare);
 				this.ChangeAllSquareNormalState();
                 //TODO 次のターンに行く処理
-
                 SePlayManager.PlaySeSound(SePlayManager.SE.walking_se);
-
             }
-			else if(clickedSquare.CurrentState == SquareState.Normal || clickedSquare.CurrentState == SquareState.Hovering)
-			{
-                // 駒の選択中に移動可能範囲外を選択したら洗濯を全てきれいにする
-				this.ChangeAllSquareNormalState();
-			}
 		}
 	}
 
     private void Awake()
     {
         GenerateBoardGrid();
-        SpawnPieaces();
+		myPlayer.SpawnPieaces(allGridSquares);
+		opponentPlayer.SpawnPieaces(allGridSquares);
 		ChangeAllSquareNormalState();
 	}
 }

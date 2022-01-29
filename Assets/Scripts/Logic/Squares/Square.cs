@@ -23,7 +23,10 @@ public class Square : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     {
         if(this.CurrentState == SquareState.Normal)
         {
-            this.ChangeStateWithGraphic(SquareState.Hovering);
+            if(GameController.Instance.SelectingSquare == null)
+            {
+                this.ChangeStateWithGraphic(SquareState.Hovering);
+            }
         }
         else if(this.CurrentState == SquareState.Movable)
         {
