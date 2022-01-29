@@ -13,6 +13,7 @@ public class GameController : SingletonBehaviour<GameController>
 
 	public void SetResu(Resut re)
 	{
+		if(SoundManager.Instance)
 		SoundManager.Instance.StopBgm();
 
 		_resut = re;
