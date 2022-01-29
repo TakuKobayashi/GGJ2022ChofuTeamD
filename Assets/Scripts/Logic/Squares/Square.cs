@@ -8,22 +8,39 @@ public class Square : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
 {
     public BoardPosition boardPosition { private set; get; }
     private Action<Square> OnClick = null;
+    // 現在選択中などマスのStateが変わることがあるのでそれに合わせた管理をする
+    public SquareState CurrentState { private set; get; }
 
     public void Initialize(int positionX, int positionY, Action<Square> onClick)
     {
+        this.CurrentState = SquareState.Normal;
         this.boardPosition = new BoardPosition(positionX, positionY);
         this.OnClick = onClick;
-        this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+        this.ShowStateGraphic();
     }
 
     public void OnPointerEnter(PointerEventData eventData)
     {
-        this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+        if(this.CurrentState == SquareState.Normal)
+        {
+            this.ChangeStateWithGraphic(SquareState.Hovering);
+        }
+        else if(this.CurrentState == SquareState.Movable)
+        {
+            this.ChangeStateWithGraphic(SquareState.MovableHovering);
+        }
     }
 
     public void OnPointerExit(PointerEventData eventData)
     {
-        this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+        if (this.CurrentState == SquareState.Hovering)
+        {
+            this.ChangeStateWithGraphic(SquareState.Normal);
+        }
+        else if (this.CurrentState == SquareState.MovableHovering)
+        {
+            this.ChangeStateWithGraphic(SquareState.Movable);
+        }
     }
 
     public void OnPointerClick(PointerEventData eventData)
@@ -34,15 +51,33 @@ public class Square : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
         }
     }
 
-    // Start is called before the first frame update
-    void Start()
+    public void ChangeStateWithGraphic(SquareState squareState)
     {
-        
+        this.CurrentState = squareState;
+        this.ShowStateGraphic();
     }
 
-    // Update is called once per frame
-    void Update()
+    private void ShowStateGraphic()
     {
-        
+        if(this.CurrentState == SquareState.Normal)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+        }
+        else if (this.CurrentState == SquareState.Hovering)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.gray;
+        }
+        else if (this.CurrentState == SquareState.Selecting)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.green;
+        }
+        else if (this.CurrentState == SquareState.Movable)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.red;
+        }
+        else if (this.CurrentState == SquareState.MovableHovering)
+        {
+            this.GetComponent<UnityEngine.UI.Image>().color = Color.yellow;
+        }
     }
 }

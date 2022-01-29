@@ -18,4 +18,26 @@ public abstract class Piece : MonoBehaviour
     {
         this.CurrentPosition = new BoardPosition(positionX, positionY);
     }
+
+    public List<Square> FilterMovableSquares(List<Square> allSquares, List<Piece> myPieses)
+    {
+        List<Square> pieceMovableSquares = new List<Square>();
+        foreach (BoardPosition boardPosition in defaultMovableBoardPositions)
+        {
+            int willMoveX = CurrentPosition.x + boardPosition.x;
+            int willMoveY = CurrentPosition.y + boardPosition.y;
+
+            // 移動したい先に自分のコマがある時は移動可能なマスに含めない
+            if (myPieses.Exists(piece => piece.CurrentPosition.x == willMoveX && piece.CurrentPosition.y == willMoveY)){
+                continue;
+            }
+            // マスとして存在するもののみを絞り込む
+            Square willMovableSquare = allSquares.Find(square => square.boardPosition.x == willMoveX && square.boardPosition.y == willMoveY);
+            if(willMovableSquare != null)
+            {
+                pieceMovableSquares.Add(willMovableSquare);
+            }
+        }
+        return pieceMovableSquares;
+    }
 }

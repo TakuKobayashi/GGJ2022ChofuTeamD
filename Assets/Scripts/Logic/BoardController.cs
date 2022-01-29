@@ -18,8 +18,10 @@ public class BoardController : MonoBehaviour
     // 各駒の初期配置の位置を定義
     [SerializeField] private List<PiecePosition> defaultPieces;
 
-    private List<Square> gridSquares = new List<Square>();
+    private List<Square> allGridSquares = new List<Square>();
     private List<Piece> pieces = new List<Piece>();
+
+    private Square selectingSquare = null;
 
     private void GenerateBoardGrid()
     {
@@ -29,7 +31,7 @@ public class BoardController : MonoBehaviour
             {
                 Square gridSquare = ComponentUtil.InstantiateTo<Square>(boardGridLayoutGroup.gameObject, gridSquareObject);
                 gridSquare.Initialize(j, i, OnSquareClicked);
-                gridSquares.Add(gridSquare);
+                allGridSquares.Add(gridSquare);
             }
         }
     }
@@ -38,7 +40,7 @@ public class BoardController : MonoBehaviour
     {
         foreach(PiecePosition piecePosition in defaultPieces)
         {
-            Square gridSquare = gridSquares.Find(g => g.boardPosition.x == piecePosition.position.x && g.boardPosition.y == piecePosition.position.y);
+            Square gridSquare = allGridSquares.Find(g => g.boardPosition.x == piecePosition.position.x && g.boardPosition.y == piecePosition.position.y);
             if(gridSquare != null)
             {
                 Piece piece = ComponentUtil.InstantiateTo<Piece>(gridSquare.gameObject, piecePosition.pieceObj.gameObject);
@@ -48,26 +50,58 @@ public class BoardController : MonoBehaviour
         }
     }
 
-    private void OnSquareClicked(Square clickedSquare)
+    // マス目を全て初期状態にする
+	private void ChangeAllSquareNormalState()
+	{
+		this.selectingSquare = null;
+		foreach (Square movableSquare in allGridSquares)
+		{
+			movableSquare.ChangeStateWithGraphic(SquareState.Normal);
+		}
+	}
+
+	private void OnSquareClicked(Square clickedSquare)
     {
         Debug.Log(string.Format("{0},{1}", clickedSquare.boardPosition.x, clickedSquare.boardPosition.y));
-    }
+        // 移動させようとした駒を選択したら、選択解除してクリアにする
+        if(clickedSquare.CurrentState == SquareState.Selecting)
+		{
+			this.ChangeAllSquareNormalState();
+			return;
+		}
+        if(this.selectingSquare == null)
+		{
+			Piece clickedPiece = pieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
+			if (clickedPiece != null)
+			{
+				clickedSquare.ChangeStateWithGraphic(SquareState.Selecting);
+				this.selectingSquare = clickedSquare;
+				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, pieces);
+				foreach (Square movableSquare in movableSquares)
+				{
+					movableSquare.ChangeStateWithGraphic(SquareState.Movable);
+				}
+			}
+		}
+		else
+		{
+            if(clickedSquare.CurrentState == SquareState.Movable || clickedSquare.CurrentState == SquareState.MovableHovering)
+			{
+                // TODO: 駒の移動処理
+			}
+			else if(clickedSquare.CurrentState == SquareState.Normal || clickedSquare.CurrentState == SquareState.Hovering)
+			{
+                // 駒の選択中に移動可能範囲外を選択したら洗濯を全てきれいにする
+				this.ChangeAllSquareNormalState();
+				return;
+			}
+		}
+	}
 
     private void Awake()
     {
         GenerateBoardGrid();
         SpawnPieaces();
-    }
-
-    // Start is called before the first frame update
-    void Start()
-    {
-        
-    }
-
-    // Update is called once per frame
-    void Update()
-    {
-        
-    }
+		ChangeAllSquareNormalState();
+	}
 }
