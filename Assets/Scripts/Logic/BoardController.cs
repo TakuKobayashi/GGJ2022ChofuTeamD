@@ -19,7 +19,23 @@ public class BoardController : MonoBehaviour
 	// 相手の手番
 	[SerializeField] private Player opponentPlayer;
 
-	private List<Square> allGridSquares = new List<Square>();
+    // ターンは交互にやってくるので今のターンのPlayerの情報を保持する
+    private Player currentTurnPlayer;
+
+    private List<Square> allGridSquares = new List<Square>();
+
+    // 最初のPlayerのターンを抽選する
+    private void LotFirstPlayerTurn()
+    {
+        if(Random.value < 0.5f)
+        {
+            currentTurnPlayer = myPlayer;
+        }
+        else
+        {
+            currentTurnPlayer = opponentPlayer;
+        }
+    }
 
     private void GenerateBoardGrid()
     {
@@ -62,12 +78,12 @@ public class BoardController : MonoBehaviour
 		}
         if(GameController.Instance.SelectingSquare == null)
 		{
-            Piece clickedPiece = myPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
+            Piece clickedPiece = currentTurnPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
 			if (clickedPiece != null)
 			{
 				clickedSquare.ChangeStateWithGraphic(SquareState.Selecting);
                 GameController.Instance.SelectingSquare = clickedSquare;
-				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, myPlayer.CurrentPieces);
+				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, currentTurnPlayer.CurrentPieces);
 				foreach (Square movableSquare in movableSquares)
 				{
 					movableSquare.ChangeStateWithGraphic(SquareState.Movable);
@@ -79,14 +95,27 @@ public class BoardController : MonoBehaviour
             if(clickedSquare.CurrentState == SquareState.Movable || clickedSquare.CurrentState == SquareState.MovableHovering)
             {
                 BoardPosition selectingSquareBoardPosition = GameController.Instance.SelectingSquare.boardPosition;
-                Piece movePiece = myPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == selectingSquareBoardPosition.x && p.CurrentPosition.y == selectingSquareBoardPosition.y);
+                Piece movePiece = currentTurnPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == selectingSquareBoardPosition.x && p.CurrentPosition.y == selectingSquareBoardPosition.y);
 				movePiece.Move(clickedSquare);
 				this.ChangeAllSquareNormalState();
-                //TODO 次のターンに行く処理
+                //TODO 勝利などの判定処理
+                TurnChange();
                 SePlayManager.PlaySeSound(SePlayManager.SE.walking_se);
             }
 		}
 	}
+
+    private void TurnChange()
+    {
+        if(currentTurnPlayer == myPlayer)
+        {
+            currentTurnPlayer = opponentPlayer;
+        }
+        else
+        {
+            currentTurnPlayer = myPlayer;
+        }
+    }
 
     private void Awake()
     {
@@ -94,5 +123,6 @@ public class BoardController : MonoBehaviour
 		myPlayer.SpawnPieaces(allGridSquares);
 		opponentPlayer.SpawnPieaces(allGridSquares);
 		ChangeAllSquareNormalState();
-	}
+        LotFirstPlayerTurn();
+    }
 }
