@@ -5,11 +5,17 @@ using UnityEngine.SceneManagement;
 public class GameTransfer : MonoBehaviour
 {
     [SerializeField] string[] loadScenes;
+    SoundManager.Handle bgm_handle;
+
 
     // Start is called before the first frame update
     void Start()
     {
-        
+        //Set BGM volume
+        SoundManager.Instance.Volume.bgm = 0.05f;
+        //Play BGM
+        bgm_handle = SoundManager.Instance.PlayBgm("OP");
+
     }
     private bool bottonDown = false;
     // Update is called once per frame
@@ -31,8 +37,8 @@ public class GameTransfer : MonoBehaviour
 				{
 					yield return SceneManager.LoadSceneAsync(scene, LoadSceneMode.Additive);
 				}
-
-        SceneManager.UnloadScene("GameTitle");
+        SoundManager.Instance.StopBgm();
+          SceneManager.UnloadScene("GameTitle");
 
         }
 }
