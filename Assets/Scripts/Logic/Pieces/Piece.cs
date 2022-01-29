@@ -40,4 +40,11 @@ public abstract class Piece : MonoBehaviour
         }
         return pieceMovableSquares;
     }
+
+    public void Move(Square moveToSquare)
+    {
+        this.transform.parent = moveToSquare.transform;
+        ComponentUtil.Normalize(this.transform);
+        this.CurrentPosition = moveToSquare.boardPosition;
+    }
 }

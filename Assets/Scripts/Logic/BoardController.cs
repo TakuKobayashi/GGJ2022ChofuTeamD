@@ -62,7 +62,6 @@ public class BoardController : MonoBehaviour
 
 	private void OnSquareClicked(Square clickedSquare)
     {
-        Debug.Log(string.Format("{0},{1}", clickedSquare.boardPosition.x, clickedSquare.boardPosition.y));
         // 移動させようとした駒を選択したら、選択解除してクリアにする
         if(clickedSquare.CurrentState == SquareState.Selecting)
 		{
@@ -87,13 +86,15 @@ public class BoardController : MonoBehaviour
 		{
             if(clickedSquare.CurrentState == SquareState.Movable || clickedSquare.CurrentState == SquareState.MovableHovering)
 			{
-                // TODO: 駒の移動処理
+				Piece movePiece = pieces.Find(p => p.CurrentPosition.x == this.selectingSquare.boardPosition.x && p.CurrentPosition.y == this.selectingSquare.boardPosition.y);
+				movePiece.Move(clickedSquare);
+				this.ChangeAllSquareNormalState();
+                //TODO 次のターンに行く処理
 			}
 			else if(clickedSquare.CurrentState == SquareState.Normal || clickedSquare.CurrentState == SquareState.Hovering)
 			{
                 // 駒の選択中に移動可能範囲外を選択したら洗濯を全てきれいにする
 				this.ChangeAllSquareNormalState();
-				return;
 			}
 		}
 	}
