@@ -17,4 +17,7 @@ EditorBuildSettings:
   - enabled: 1
     path: Assets/Scenes/GameTitle.unity
     guid: dc8bb183ce05a9a45b512b34dfd7eb5e
+  - enabled: 1
+    path: Assets/_shirai/Scenes/result.unity
+    guid: 79a4a234220049349b704ceecfa5f01b
   m_configObjects: {}
