@@ -28,7 +28,7 @@ public class BoardController : MonoBehaviour
             for (int j = 0; j < boardWidth; ++j)
             {
                 Square gridSquare = ComponentUtil.InstantiateTo<Square>(boardGridLayoutGroup.gameObject, gridSquareObject);
-                gridSquare.Initialize(i, j);
+                gridSquare.Initialize(j, i);
                 gridSquares.Add(gridSquare);
             }
         }
