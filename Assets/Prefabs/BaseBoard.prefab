@@ -153,6 +153,7 @@ MonoBehaviour:
   boardHeight: 10
   boardGridLayoutGroup: {fileID: 5158562691942253928}
   gridSquareObject: {fileID: 4804833961266466166, guid: dd1cc334bff764a21a605eb4fc44ebe3, type: 3}
+  territoryGridSquareObject: {fileID: 4862548392463076704, guid: 928ac0dbd1470461984950f9e5d77ab4, type: 3}
   myPlayer:
     territoryPositions:
     - x: 0
@@ -206,28 +207,4 @@ MonoBehaviour:
       y: 0
     - x: 0
       y: 0
-    defaultPieces:
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 0}
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 0}
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 0}
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 0}
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 0}
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 0}
+    defaultPieces: []

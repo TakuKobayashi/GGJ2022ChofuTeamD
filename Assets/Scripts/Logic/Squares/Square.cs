@@ -11,6 +11,13 @@ public class Square : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     // 現在選択中などマスのStateが変わることがあるのでそれに合わせた管理をする
     public SquareState CurrentState { private set; get; }
 
+    private Color defaultImageColor;
+
+    private void Awake()
+    {
+        this.defaultImageColor = this.GetComponent<UnityEngine.UI.Image>().color;
+    }
+
     public void Initialize(int positionX, int positionY, Action<Square> onClick)
     {
         this.CurrentState = SquareState.Normal;
@@ -64,7 +71,7 @@ public class Square : MonoBehaviour, IPointerEnterHandler, IPointerExitHandler, 
     {
         if(this.CurrentState == SquareState.Normal)
         {
-            this.GetComponent<UnityEngine.UI.Image>().color = Color.white;
+            this.GetComponent<UnityEngine.UI.Image>().color = defaultImageColor;
         }
         else if (this.CurrentState == SquareState.Hovering)
         {

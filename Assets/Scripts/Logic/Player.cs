@@ -11,6 +11,12 @@ public class Player
     private List<Piece> currentPieces = new List<Piece>();
     public List<Piece> CurrentPieces{ get{ return currentPieces; } }
 
+    // 初期配置、拠点陣地かどうか判別する
+    public bool CheckTerritoryPosition(int x, int y)
+    {
+        return territoryPositions.Exists(tp => tp.x == x && tp.y == y);
+    }
+
     public void SpawnPieaces(List<Square> allGridSquares)
     {
         foreach(PiecePosition piecePosition in defaultPieces)

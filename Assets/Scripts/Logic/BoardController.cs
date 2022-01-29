@@ -12,9 +12,10 @@ public class BoardController : MonoBehaviour
 
     [SerializeField] private GridLayoutGroup boardGridLayoutGroup;
     [SerializeField] private GameObject gridSquareObject;
+    [SerializeField] private GameObject territoryGridSquareObject;
 
     // 自分の手番
-	[SerializeField] private Player myPlayer;
+    [SerializeField] private Player myPlayer;
 	// 相手の手番
 	[SerializeField] private Player opponentPlayer;
 
@@ -26,7 +27,15 @@ public class BoardController : MonoBehaviour
         {
             for (int j = 0; j < boardWidth; ++j)
             {
-                Square gridSquare = ComponentUtil.InstantiateTo<Square>(boardGridLayoutGroup.gameObject, gridSquareObject);
+                Square gridSquare;
+                if (myPlayer.CheckTerritoryPosition(j, i) || opponentPlayer.CheckTerritoryPosition(j, i))
+                {
+                    gridSquare = ComponentUtil.InstantiateTo<Square>(boardGridLayoutGroup.gameObject, territoryGridSquareObject);
+                }
+                else
+                {
+                    gridSquare = ComponentUtil.InstantiateTo<Square>(boardGridLayoutGroup.gameObject, gridSquareObject);
+                }
                 gridSquare.Initialize(j, i, OnSquareClicked);
                 allGridSquares.Add(gridSquare);
             }
