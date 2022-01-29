@@ -202,6 +202,7 @@ public class SoundManager : SingletonMonoBehaviour<SoundManager>
     //------------------------------------------------------------------------------
     protected override void doAwake()
     {
+        DontDestroyOnLoad(this);
         LoadSettingsFunction = () => DefaultLoadSettings();
         SaveSettingsFunction = () => DefaultSaveSettings();
         
