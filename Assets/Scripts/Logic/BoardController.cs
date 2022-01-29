@@ -28,7 +28,7 @@ public class BoardController : MonoBehaviour
             for (int j = 0; j < boardWidth; ++j)
             {
                 Square gridSquare = ComponentUtil.InstantiateTo<Square>(boardGridLayoutGroup.gameObject, gridSquareObject);
-                gridSquare.Initialize(j, i);
+                gridSquare.Initialize(j, i, OnSquareClicked);
                 gridSquares.Add(gridSquare);
             }
         }
@@ -46,6 +46,11 @@ public class BoardController : MonoBehaviour
                 pieces.Add(piece);
             }
         }
+    }
+
+    private void OnSquareClicked(Square clickedSquare)
+    {
+        Debug.Log(string.Format("{0},{1}", clickedSquare.boardPosition.x, clickedSquare.boardPosition.y));
     }
 
     private void Awake()
