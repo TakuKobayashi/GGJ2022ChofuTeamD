@@ -2,7 +2,7 @@ using System.Collections;
 using System.Collections.Generic;
 using UnityEngine;
 
-public class SePlayManager : MonoBehaviour
+static public class SePlayManager
 {
     public enum SE
     {
@@ -15,9 +15,10 @@ public class SePlayManager : MonoBehaviour
     };
 
 
-    static void PlaySeSound(SE _se)
+    static public void PlaySeSound(SE _se)
     {
-        SoundManager.Instance.PlaySe(_se.ToString());
+        if(SoundManager.Instance)
+            SoundManager.Instance.PlaySe(_se.ToString());
     }
 
 }

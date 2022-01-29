@@ -90,7 +90,10 @@ public class BoardController : MonoBehaviour
 				movePiece.Move(clickedSquare);
 				this.ChangeAllSquareNormalState();
                 //TODO 次のターンに行く処理
-			}
+
+                SePlayManager.PlaySeSound(SePlayManager.SE.walking_se);
+
+            }
 			else if(clickedSquare.CurrentState == SquareState.Normal || clickedSquare.CurrentState == SquareState.Hovering)
 			{
                 // 駒の選択中に移動可能範囲外を選択したら洗濯を全てきれいにする
