@@ -538,10 +538,10 @@ MonoBehaviour:
   m_Script: {fileID: 11500000, guid: 0cd44c1031e13a943bb63640046fad76, type: 3}
   m_Name: 
   m_EditorClassIdentifier: 
-  m_UiScaleMode: 0
+  m_UiScaleMode: 1
   m_ReferencePixelsPerUnit: 100
   m_ScaleFactor: 1
-  m_ReferenceResolution: {x: 800, y: 600}
+  m_ReferenceResolution: {x: 960, y: 540}
   m_ScreenMatchMode: 0
   m_MatchWidthOrHeight: 0
   m_PhysicalUnit: 3
@@ -558,8 +558,8 @@ Canvas:
   m_GameObject: {fileID: 1237395629}
   m_Enabled: 1
   serializedVersion: 3
-  m_RenderMode: 0
-  m_Camera: {fileID: 0}
+  m_RenderMode: 1
+  m_Camera: {fileID: 963194227}
   m_PlaneDistance: 100
   m_PixelPerfect: 0
   m_ReceivesEvents: 1
@@ -754,6 +754,10 @@ PrefabInstance:
       propertyPath: m_AnchoredPosition.y
       value: 0
       objectReference: {fileID: 0}
+    - target: {fileID: 5158562691942253928, guid: 69e56b45df72a4770895a447877889f6, type: 3}
+      propertyPath: m_CellSize.y
+      value: 53
+      objectReference: {fileID: 0}
     - target: {fileID: 6812354449707688123, guid: 69e56b45df72a4770895a447877889f6, type: 3}
       propertyPath: m_AnchorMax.y
       value: 0
@@ -812,7 +816,7 @@ PrefabInstance:
       objectReference: {fileID: 0}
     - target: {fileID: 8364127390164021206, guid: 69e56b45df72a4770895a447877889f6, type: 3}
       propertyPath: m_SizeDelta.y
-      value: 800
+      value: 540
       objectReference: {fileID: 0}
     - target: {fileID: 8364127390164021206, guid: 69e56b45df72a4770895a447877889f6, type: 3}
       propertyPath: m_LocalPosition.x
