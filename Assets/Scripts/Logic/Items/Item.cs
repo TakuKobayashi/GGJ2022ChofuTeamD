@@ -6,4 +6,5 @@ public class Item : MonoBehaviour
 {
     [SerializeField] private ItemTypes itemTypes;
 
+	public ItemTypes CurrentItemTypes { get { return itemTypes; } }
 }
