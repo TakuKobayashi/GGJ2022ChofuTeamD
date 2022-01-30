@@ -77,13 +77,10 @@ public class BoardController : MonoBehaviour
             {
                 BoardPosition selectingSquareBoardPosition = this.selectingSquare.boardPosition;
                 Piece movePiece = currentTurnPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == selectingSquareBoardPosition.x && p.CurrentPosition.y == selectingSquareBoardPosition.y);
-                //Piece oppositePiece = GetOppositeTurnPlayer().CurrentPieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
-                //judgeOppositePiece
                 movePiece.Move(clickedSquare);
 				this.ChangeAllSquareNormalState();
-                //TODO 勝利などの判定処理
-                GameController.Instance.TurnChange();
-                SePlayManager.PlaySeSound(SePlayManager.SE.walking_se);
+                // 勝利判定からのTurnの切り替え処理をここで行う
+                GameController.Instance.Judge();
             }
 		}
 	}

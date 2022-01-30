@@ -64,7 +64,47 @@ public class GameController : SingletonBehaviour<GameController>
         return currentTurnPlayer == myPlayer;
     }
 
-    public void TurnChange()
+    public void Judge()
+	{
+		// 自分の持ち駒がなくなった
+		if (myPlayer.CurrentPieces.Count <= 0)
+		{
+			// 負け
+			Debug.Log("Lose");
+			return;
+		}
+		// 相手の持ち駒がなくなった
+		if (opponentPlayer.CurrentPieces.Count <= 0)
+		{
+			// 勝ち
+			Debug.Log("Win");
+			return;
+		}
+        // 自分のコマが相手の陣地にたどり着いた
+		foreach (Piece myPiece in myPlayer.CurrentPieces)
+		{
+            if (opponentPlayer.CheckTerritoryPosition(myPiece.CurrentPosition.x, myPiece.CurrentPosition.y))
+			{
+				// 勝ち
+				Debug.Log("Win");
+				return;
+			}
+		}
+		// 相手のコマが自分の陣地にたどり着いた
+		foreach (Piece opponentPiece in opponentPlayer.CurrentPieces)
+		{
+			if (myPlayer.CheckTerritoryPosition(opponentPiece.CurrentPosition.x, opponentPiece.CurrentPosition.y))
+			{
+				// 負け
+				Debug.Log("Lose");
+				return;
+			}
+		}
+		this.TurnChange();
+		SePlayManager.PlaySeSound(SePlayManager.SE.walking_se);
+	}
+
+    private void TurnChange()
     {
         if (isMyTurn())
         {
