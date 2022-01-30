@@ -70,14 +70,14 @@ public class GameController : SingletonBehaviour<GameController>
 		if (myPlayer.CurrentPieces.Count <= 0)
 		{
 			// 負け
-			Debug.Log("Lose");
+			SetResu(Resut.Lose);
 			return;
 		}
 		// 相手の持ち駒がなくなった
 		if (opponentPlayer.CurrentPieces.Count <= 0)
 		{
 			// 勝ち
-			Debug.Log("Win");
+			SetResu(Resut.Win);
 			return;
 		}
         // 自分のコマが相手の陣地にたどり着いた
@@ -86,7 +86,7 @@ public class GameController : SingletonBehaviour<GameController>
             if (opponentPlayer.CheckTerritoryPosition(myPiece.CurrentPosition.x, myPiece.CurrentPosition.y))
 			{
 				// 勝ち
-				Debug.Log("Win");
+				SetResu(Resut.Win);
 				return;
 			}
 		}
@@ -96,7 +96,7 @@ public class GameController : SingletonBehaviour<GameController>
 			if (myPlayer.CheckTerritoryPosition(opponentPiece.CurrentPosition.x, opponentPiece.CurrentPosition.y))
 			{
 				// 負け
-				Debug.Log("Lose");
+				SetResu(Resut.Lose);
 				return;
 			}
 		}
