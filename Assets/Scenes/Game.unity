@@ -253,6 +253,7 @@ GameObject:
   - component: {fileID: 353486093}
   - component: {fileID: 353486095}
   - component: {fileID: 353486094}
+  - component: {fileID: 353486096}
   m_Layer: 5
   m_Name: Player01
   m_TagString: Untagged
@@ -317,6 +318,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 353486092}
   m_CullTransparentMesh: 1
+--- !u!114 &353486096
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 353486092}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6382d3aecba75476eab69649c197d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayOnAwake: 1
+  m_IgnoreTimeScale: 1
+  m_AnimationData:
+    m_State: 0
+    m_Preset: {fileID: 11400000, guid: fa6c79764c6dc4e4b87f84b2036ae0ad, type: 2}
+    m_TweenDatas: []
 --- !u!1 &462071075
 GameObject:
   m_ObjectHideFlags: 0
@@ -1109,6 +1128,8 @@ MonoBehaviour:
   colors:
   - {r: 0.9450981, g: 0.7607844, b: 0.19607845, a: 0.39215687}
   - {r: 0.06666667, g: 0.33333334, b: 0.8000001, a: 0.39215687}
+  p1: {fileID: 353486096}
+  p2: {fileID: 1300610615}
 --- !u!1 &1251641557
 GameObject:
   m_ObjectHideFlags: 0
@@ -1318,6 +1339,7 @@ GameObject:
   - component: {fileID: 1300610612}
   - component: {fileID: 1300610614}
   - component: {fileID: 1300610613}
+  - component: {fileID: 1300610615}
   m_Layer: 5
   m_Name: Player02
   m_TagString: Untagged
@@ -1382,6 +1404,24 @@ CanvasRenderer:
   m_PrefabAsset: {fileID: 0}
   m_GameObject: {fileID: 1300610611}
   m_CullTransparentMesh: 1
+--- !u!114 &1300610615
+MonoBehaviour:
+  m_ObjectHideFlags: 0
+  m_CorrespondingSourceObject: {fileID: 0}
+  m_PrefabInstance: {fileID: 0}
+  m_PrefabAsset: {fileID: 0}
+  m_GameObject: {fileID: 1300610611}
+  m_Enabled: 1
+  m_EditorHideFlags: 0
+  m_Script: {fileID: 11500000, guid: 6382d3aecba75476eab69649c197d7ca, type: 3}
+  m_Name: 
+  m_EditorClassIdentifier: 
+  m_PlayOnAwake: 1
+  m_IgnoreTimeScale: 1
+  m_AnimationData:
+    m_State: 0
+    m_Preset: {fileID: 11400000, guid: fa6c79764c6dc4e4b87f84b2036ae0ad, type: 2}
+    m_TweenDatas: []
 --- !u!1 &1346325979
 GameObject:
   m_ObjectHideFlags: 0

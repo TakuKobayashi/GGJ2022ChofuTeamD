@@ -10,6 +10,11 @@ public class PlayUI : MonoBehaviour
 
     [SerializeField]
     private Color[] colors;
+
+    [SerializeField]
+    private Mobcast.Coffee.Transition.UIAnimation p1;
+    [SerializeField]
+    private Mobcast.Coffee.Transition.UIAnimation p2;
     // Start is called before the first frame update
     void Start()
     {
@@ -21,10 +26,14 @@ public class PlayUI : MonoBehaviour
         if (GameController.Instance.isMyTurn())
         {
             imgbg.color = colors[0];
+            p1.enabled = true;
+            p2.enabled = false;
         }
         else
         {
             imgbg.color = colors[1];
+            p1.enabled = false;
+            p2.enabled = true;
         }
 
     }
