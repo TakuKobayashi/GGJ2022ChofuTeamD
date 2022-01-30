@@ -32,9 +32,22 @@ public class GameController : SingletonBehaviour<GameController>
         }
     }
 
+    // 対戦相手となるPlayerの情報を取得できるようにする
+	public Player OppositePlayer(Player player)
+	{
+		if(player == myPlayer)
+		{
+			return opponentPlayer;
+		}
+		else
+		{
+			return myPlayer;
+		}
+	}
 
-    // 最初のPlayerのターンを抽選する
-    public void LotFirstPlayerTurn()
+
+	// 最初のPlayerのターンを抽選する
+	public void LotFirstPlayerTurn()
     {
         if (Random.value < 0.5f)
         {

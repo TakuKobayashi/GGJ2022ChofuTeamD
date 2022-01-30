@@ -25,7 +25,7 @@ public class Player
             if(gridSquare != null)
             {
                 Piece piece = ComponentUtil.InstantiateTo<Piece>(gridSquare.gameObject, piecePosition.pieceObj.gameObject);
-                piece.Initialize(gridSquare.boardPosition.x, gridSquare.boardPosition.y);
+                piece.Initialize(this, gridSquare.boardPosition.x, gridSquare.boardPosition.y);
                 this.currentPieces.Add(piece);
             }
         }

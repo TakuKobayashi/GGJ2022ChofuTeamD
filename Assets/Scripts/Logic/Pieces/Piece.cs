@@ -12,15 +12,19 @@ public abstract class Piece : MonoBehaviour
     // 例4: 下に一マス移動可能な場合はx: 0,y: -1と入力 
     [SerializeField] protected List<BoardPosition> defaultMovableBoardPositions;
 
+    protected Player owner;
     public BoardPosition CurrentPosition { private set; get; }
 
-    public void Initialize(int positionX, int positionY)
+    public void Initialize(Player owner, int positionX, int positionY)
     {
         this.CurrentPosition = new BoardPosition(positionX, positionY);
+        this.owner = owner;
     }
 
-    public List<Square> FilterMovableSquares(List<Square> allSquares, List<Piece> myPieses)
+    public List<Square> FilterMovableSquares(List<Square> allSquares)
     {
+        List<Piece> myPieses = this.owner.CurrentPieces;
+        Player oppositePlayer = GameController.Instance.OppositePlayer(this.owner);
         List<Square> pieceMovableSquares = new List<Square>();
         foreach (BoardPosition boardPosition in defaultMovableBoardPositions)
         {
@@ -29,6 +33,12 @@ public abstract class Piece : MonoBehaviour
 
             // 移動したい先に自分のコマがある時は移動可能なマスに含めない
             if (myPieses.Exists(piece => piece.CurrentPosition.x == willMoveX && piece.CurrentPosition.y == willMoveY)){
+                continue;
+            }
+            // 移動先の相手とやり合っても引き分ける時は移動できない
+            Piece battlePiece = oppositePlayer.CurrentPieces.Find(piece => piece.CurrentPosition.x == willMoveX && piece.CurrentPosition.y == willMoveY);
+            if(battlePiece != null && this.judgeOppositePiece(battlePiece) == BattleJudges.Draw)
+            {
                 continue;
             }
             // マスとして存在するもののみを絞り込む

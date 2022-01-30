@@ -64,7 +64,7 @@ public class BoardController : MonoBehaviour
 			{
 				clickedSquare.ChangeStateWithGraphic(SquareState.Selecting);
                 this.selectingSquare = clickedSquare;
-				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, currentTurnPlayer.CurrentPieces);
+				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares);
 				foreach (Square movableSquare in movableSquares)
 				{
 					movableSquare.ChangeStateWithGraphic(SquareState.Movable);
