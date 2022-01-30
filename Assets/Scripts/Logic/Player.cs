@@ -17,25 +17,30 @@ public class Player
         return territoryPositions.Exists(tp => tp.x == x && tp.y == y);
     }
 
-    public void SpawnPieaces(List<Square> allGridSquares, bool isReverse)
+    public void SpawnPieces(List<Square> allGridSquares, bool isReverse)
     {
         foreach(PiecePosition piecePosition in defaultPieces)
         {
             Square gridSquare = allGridSquares.Find(g => g.boardPosition.x == piecePosition.position.x && g.boardPosition.y == piecePosition.position.y);
             if(gridSquare != null)
             {
-                Piece piece = ComponentUtil.InstantiateTo<Piece>(gridSquare.gameObject, piecePosition.pieceObj.gameObject);
-				if (isReverse)
-				{
-                    piece.transform.localScale = new Vector3(-piece.transform.localScale.x, piece.transform.localScale.y, piece.transform.localScale.z);
-				}
-                piece.Initialize(this, gridSquare.boardPosition.x, gridSquare.boardPosition.y);
-                this.currentPieces.Add(piece);
-            }
+				this.SpawnPiece(gridSquare, piecePosition.pieceObj.gameObject, isReverse);
+			}
         }
     }
 
-    public void LostPiece(Piece willLostPiece)
+	public void SpawnPiece(Square gridSquare, GameObject pieceObj, bool isReverse)
+	{
+		Piece piece = ComponentUtil.InstantiateTo<Piece>(gridSquare.gameObject, pieceObj);
+		if (isReverse)
+		{
+			piece.transform.localScale = new Vector3(-piece.transform.localScale.x, piece.transform.localScale.y, piece.transform.localScale.z);
+		}
+		piece.Initialize(this, gridSquare.boardPosition.x, gridSquare.boardPosition.y);
+		this.currentPieces.Add(piece);
+	}
+
+	public void LostPiece(Piece willLostPiece)
     {
 		if (currentPieces.Remove(willLostPiece))
         {

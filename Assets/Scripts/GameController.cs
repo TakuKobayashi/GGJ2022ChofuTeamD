@@ -61,8 +61,8 @@ public class GameController : SingletonBehaviour<GameController>
 
     public void SpawnPieaces(List<Square> allGridSquares)
 	{
-		myPlayer.SpawnPieaces(allGridSquares, false);
-		opponentPlayer.SpawnPieaces(allGridSquares, true);
+		myPlayer.SpawnPieces(allGridSquares, false);
+		opponentPlayer.SpawnPieces(allGridSquares, true);
 	}
 
 
