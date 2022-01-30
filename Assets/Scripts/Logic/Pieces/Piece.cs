@@ -90,7 +90,8 @@ public abstract class Piece : MonoBehaviour
         Piece battlePiece = oppositePlayer.CurrentPieces.Find(piece => piece.CurrentPosition.x == willMoveToSquare.boardPosition.x && piece.CurrentPosition.y == willMoveToSquare.boardPosition.y);
         if (battlePiece != null)
         {
-            if(this.judgeOppositePiece(battlePiece) == BattleJudges.Win)
+			SePlayManager.PlaySeSound(SePlayManager.SE.attack);
+			if (this.judgeOppositePiece(battlePiece) == BattleJudges.Win)
             {
                 if(battlePiece.equippingItem != null)
 				{
@@ -104,9 +105,18 @@ public abstract class Piece : MonoBehaviour
 					{
 						//this.owner.SpawnPiece(, battlePiece.gameObject, false);
 					}
+					// 盾を持っていたら死なないでノックバック
+					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Shield)
+					{
+						// return;
+					}
+					// 棺桶を持っていたら死なないでそこらへんに行く
+					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Coffin)
+					{
+						// return;
+					}
 				}
 				oppositePlayer.LostPiece(battlePiece);
-				SePlayManager.PlaySeSound(SePlayManager.SE.attack);
             }
             else if (this.judgeOppositePiece(battlePiece) == BattleJudges.Lose)
             {
@@ -119,13 +129,22 @@ public abstract class Piece : MonoBehaviour
 						oppositePlayer.LostPiece(battlePiece);
 					}
 					// 白旗を持っていたら寝返る
-					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Flag)
+					else if (this.equippingItem.CurrentItemTypes == ItemTypes.Flag)
 					{
-						//this.owner.SpawnPiece(, battlePiece.gameObject, false);
+						//oppositePlayer.SpawnPiece(, battlePiece.gameObject, false);
+					}
+					// 盾を持っていたら死なないでノックバック
+					else if (this.equippingItem.CurrentItemTypes == ItemTypes.Shield)
+					{
+						// return;
+					}
+					// 棺桶を持っていたら死なないでそこらへんに行く
+					else if (this.equippingItem.CurrentItemTypes == ItemTypes.Coffin)
+					{
+						// return;
 					}
 				}
 				this.owner.LostPiece(this);
-				SePlayManager.PlaySeSound(SePlayManager.SE.attack);
             }
         }
     }
