@@ -95,8 +95,7 @@ public class BoardController : MonoBehaviour
     {
         GameController.Instance.LotFirstPlayerTurn();
         GenerateBoardGrid();
-        GameController.Instance.CurrentTurnPlayer.SpawnPieaces(allGridSquares);
-        GameController.Instance.OppositeTurnPlayer.SpawnPieaces(allGridSquares);
+        GameController.Instance.SpawnPieaces(allGridSquares);
 		ChangeAllSquareNormalState();
     }
 }

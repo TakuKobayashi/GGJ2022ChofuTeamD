@@ -56,7 +56,9 @@ public abstract class Piece : MonoBehaviour
     public void Move(Square moveToSquare)
     {
         this.transform.parent = moveToSquare.transform;
+        Vector3 prevLocalScale = this.transform.localScale;
         ComponentUtil.Normalize(this.transform);
+        this.transform.localScale = prevLocalScale;
         this.CurrentPosition = moveToSquare.boardPosition;
         this.executeBattleResult(moveToSquare);
     }
