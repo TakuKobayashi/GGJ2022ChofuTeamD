@@ -8,7 +8,7 @@ public abstract class SingletonMonoBehaviour<T> : MonoBehaviour where T : Single
             if ( instance == null ) {
                 instance = ( T )FindObjectOfType( typeof( T ) );
                 if ( instance == null ) {
-                    Debug.LogError ( typeof( T ) + " does not exist" );
+                    Debug.Log ( typeof( T ) + " does not exist" );
                 }
             }
 			return instance;
