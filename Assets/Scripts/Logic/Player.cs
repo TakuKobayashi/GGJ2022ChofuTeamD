@@ -37,9 +37,10 @@ public class Player
 
     public void LostPiece(Piece willLostPiece)
     {
-        if (currentPieces.Remove(willLostPiece))
+		if (currentPieces.Remove(willLostPiece))
         {
-            GameObject.Destroy(willLostPiece.gameObject);
+			willLostPiece.LostItem();
+			GameObject.Destroy(willLostPiece.gameObject);
         }
     }
 }

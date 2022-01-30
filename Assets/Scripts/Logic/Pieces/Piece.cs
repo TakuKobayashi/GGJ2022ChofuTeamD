@@ -74,7 +74,16 @@ public abstract class Piece : MonoBehaviour
 		this.equippingItem = item;
 	}
 
-    private void executeBattleResult(Square willMoveToSquare)
+	public void LostItem()
+	{
+		if (this.equippingItem != null)
+		{
+			GameObject.Destroy(this.equippingItem.gameObject);
+		}
+		this.equippingItem = null;
+	}
+
+	private void executeBattleResult(Square willMoveToSquare)
     {
         Player oppositePlayer = GameController.Instance.OppositePlayer(this.owner);
         // 移動先の相手とやり合っても引き分ける時は移動できない
