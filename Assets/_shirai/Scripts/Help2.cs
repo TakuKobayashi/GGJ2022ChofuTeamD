@@ -21,6 +21,8 @@ public class Help2 : MonoBehaviour
     }
     public void helpButtonOpne()
     {
+        index = 0;
+        helpImg.sprite = helps[index];
         if (_uITransition2.isShow)
         {
             _uITransition2.Hide();
@@ -29,6 +31,9 @@ public class Help2 : MonoBehaviour
     }
     public void helpButtonOpne2()
     {
+        index = 0;
+        helpImg.sprite = helps[index];
+
         if (_uITransition.isShow)
         {
             _uITransition.Hide();
