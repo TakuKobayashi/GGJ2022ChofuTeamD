@@ -863,9 +863,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 1251641560}
-        m_TargetAssemblyTypeName: Mobcast.Coffee.Transition.UITransition, Assembly-CSharp
-        m_MethodName: Show
+      - m_Target: {fileID: 1698233984}
+        m_TargetAssemblyTypeName: Help2, Assembly-CSharp
+        m_MethodName: helpButtonOpne2
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}
@@ -1489,6 +1489,8 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 0743de72c884adf43b12fdd0a1b24910, type: 3}
   - {fileID: 21300000, guid: eb085bf8fe972854eaacf7c921088fa1, type: 3}
   - {fileID: 21300000, guid: df9009b8df4e4f842905b504d8079342, type: 3}
+  - {fileID: 21300000, guid: 8579a359b6ed5e043962fa39d86aa2c3, type: 3}
+  - {fileID: 21300000, guid: f80f75fb679945542949bc9e2d2487e3, type: 3}
   helpImg: {fileID: 2124311170}
   index: 0
   _uITransition: {fileID: 31184139}
@@ -1660,9 +1662,9 @@ MonoBehaviour:
   m_OnClick:
     m_PersistentCalls:
       m_Calls:
-      - m_Target: {fileID: 31184139}
-        m_TargetAssemblyTypeName: Mobcast.Coffee.Transition.UITransition, Assembly-CSharp
-        m_MethodName: Show
+      - m_Target: {fileID: 1698233984}
+        m_TargetAssemblyTypeName: Help2, Assembly-CSharp
+        m_MethodName: helpButtonOpne
         m_Mode: 1
         m_Arguments:
           m_ObjectArgument: {fileID: 0}

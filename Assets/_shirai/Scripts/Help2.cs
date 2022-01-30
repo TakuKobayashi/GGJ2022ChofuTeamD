@@ -18,7 +18,22 @@ public class Help2 : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        
+    }
+    public void helpButtonOpne()
+    {
+        if (_uITransition2.isShow)
+        {
+            _uITransition2.Hide();
+        }
+        _uITransition.Show();
+    }
+    public void helpButtonOpne2()
+    {
+        if (_uITransition.isShow)
+        {
+            _uITransition.Hide();
+        }
+        _uITransition2.Show();
     }
     public void helpButton()
     {
