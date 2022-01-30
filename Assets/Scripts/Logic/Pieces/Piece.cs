@@ -92,10 +92,13 @@ public abstract class Piece : MonoBehaviour
         {
             if(this.judgeOppositePiece(battlePiece) == BattleJudges.Win)
             {
-                // 爆弾持っていたら共倒れ
-                if(battlePiece.equippingItem != null && battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
+                if(battlePiece.equippingItem != null)
 				{
-					this.owner.LostPiece(this);
+					// 爆弾持っていたら共倒れ
+					if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
+					{
+						this.owner.LostPiece(this);
+					}
 				}
 				oppositePlayer.LostPiece(battlePiece);
 				SePlayManager.PlaySeSound(SePlayManager.SE.attack);
@@ -103,9 +106,13 @@ public abstract class Piece : MonoBehaviour
             else if (this.judgeOppositePiece(battlePiece) == BattleJudges.Lose)
             {
 				// 爆弾持っていたら共倒れ
-				if (this.equippingItem != null && this.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
+				if (this.equippingItem != null)
 				{
-					oppositePlayer.LostPiece(battlePiece);
+					// 爆弾持っていたら共倒れ
+					if (this.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
+					{
+						oppositePlayer.LostPiece(battlePiece);
+					}
 				}
 				this.owner.LostPiece(this);
 				SePlayManager.PlaySeSound(SePlayManager.SE.attack);
