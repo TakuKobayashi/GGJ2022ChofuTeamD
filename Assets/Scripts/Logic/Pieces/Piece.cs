@@ -71,10 +71,12 @@ public abstract class Piece : MonoBehaviour
             if(this.judgeOppositePiece(battlePiece) == BattleJudges.Win)
             {
                 oppositePlayer.LostPiece(battlePiece);
+                SePlayManager.PlaySeSound(SePlayManager.SE.attack);
             }
             else if (this.judgeOppositePiece(battlePiece) == BattleJudges.Lose)
             {
                 this.owner.LostPiece(this);
+                SePlayManager.PlaySeSound(SePlayManager.SE.attack);
             }
         }
     }
