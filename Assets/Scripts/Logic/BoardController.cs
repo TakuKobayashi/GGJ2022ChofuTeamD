@@ -105,15 +105,33 @@ public class BoardController : MonoBehaviour
 		}
 	}
 
+
+    private bool isMyTurn()
+    {
+        return currentTurnPlayer == myPlayer;
+    }
+
     private void TurnChange()
     {
-        if(currentTurnPlayer == myPlayer)
+        if(isMyTurn())
         {
             currentTurnPlayer = opponentPlayer;
         }
         else
         {
             currentTurnPlayer = myPlayer;
+        }
+    }
+
+    private Player GetOppositeTurnPlayer()
+    {
+        if (isMyTurn())
+        {
+            return opponentPlayer;
+        }
+        else
+        {
+            return myPlayer;
         }
     }
 
