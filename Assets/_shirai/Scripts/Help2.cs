@@ -8,6 +8,7 @@ public class Help2 : MonoBehaviour
     public Image helpImg;
     public int index=0;
     public Mobcast.Coffee.Transition.UITransition _uITransition;
+    public Mobcast.Coffee.Transition.UITransition _uITransition2;
     // Start is called before the first frame update
     void Start()
     {
@@ -19,13 +20,16 @@ public class Help2 : MonoBehaviour
     {
         
     }
-
     public void helpButton()
+    {
+        _uITransition.Hide();
+    }
+    public void helpButton2()
     {
         index++;
         if (helps.Length <= index)
 		{
-            _uITransition.Hide();
+            _uITransition2.Hide();
             index = 0;
             return;
         }
