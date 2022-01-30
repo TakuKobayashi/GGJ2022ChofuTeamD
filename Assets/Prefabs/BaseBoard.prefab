@@ -154,81 +154,12 @@ MonoBehaviour:
   boardGridLayoutGroup: {fileID: 5158562691942253928}
   gridSquareObject: {fileID: 4804833961266466166, guid: dd1cc334bff764a21a605eb4fc44ebe3, type: 3}
   territoryGridSquareObject: {fileID: 4862548392463076704, guid: 928ac0dbd1470461984950f9e5d77ab4, type: 3}
-  myPlayer:
-    territoryPositions:
-    - x: 0
-      y: 0
-    - x: 1
-      y: 0
-    - x: 2
-      y: 0
-    - x: 0
-      y: 1
-    - x: 1
-      y: 1
-    - x: 2
-      y: 1
-    defaultPieces:
-    - position:
-        x: 0
-        y: 0
-      pieceObj: {fileID: 3818227098485954890, guid: aaf3efe6d8bdb47d0899428a0eece00b, type: 3}
-    - position:
-        x: 0
-        y: 1
-      pieceObj: {fileID: 3818227098485954890, guid: aaf3efe6d8bdb47d0899428a0eece00b, type: 3}
-    - position:
-        x: 1
-        y: 0
-      pieceObj: {fileID: 483981619985794326, guid: 28d7def2154834b35bd1606bf26b7577, type: 3}
-    - position:
-        x: 1
-        y: 1
-      pieceObj: {fileID: 483981619985794326, guid: 28d7def2154834b35bd1606bf26b7577, type: 3}
-    - position:
-        x: 2
-        y: 0
-      pieceObj: {fileID: 3472217817859976899, guid: df1b572be895246309653bfd15407686, type: 3}
-    - position:
-        x: 2
-        y: 1
-      pieceObj: {fileID: 3472217817859976899, guid: df1b572be895246309653bfd15407686, type: 3}
-  opponentPlayer:
-    territoryPositions:
-    - x: 7
-      y: 8
-    - x: 7
-      y: 9
-    - x: 6
-      y: 8
-    - x: 6
-      y: 9
-    - x: 5
-      y: 8
-    - x: 5
-      y: 9
-    defaultPieces:
-    - position:
-        x: 7
-        y: 8
-      pieceObj: {fileID: 3818227098485954890, guid: aaf3efe6d8bdb47d0899428a0eece00b, type: 3}
-    - position:
-        x: 7
-        y: 9
-      pieceObj: {fileID: 3818227098485954890, guid: aaf3efe6d8bdb47d0899428a0eece00b, type: 3}
-    - position:
-        x: 6
-        y: 8
-      pieceObj: {fileID: 483981619985794326, guid: 28d7def2154834b35bd1606bf26b7577, type: 3}
-    - position:
-        x: 6
-        y: 9
-      pieceObj: {fileID: 483981619985794326, guid: 28d7def2154834b35bd1606bf26b7577, type: 3}
-    - position:
-        x: 5
-        y: 8
-      pieceObj: {fileID: 3472217817859976899, guid: df1b572be895246309653bfd15407686, type: 3}
-    - position:
-        x: 5
-        y: 9
-      pieceObj: {fileID: 3472217817859976899, guid: df1b572be895246309653bfd15407686, type: 3}
+  candidateDropItems:
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
+  - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}

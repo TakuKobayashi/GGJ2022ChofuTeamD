@@ -14,6 +14,8 @@ public class BoardController : MonoBehaviour
     [SerializeField] private GameObject gridSquareObject;
     [SerializeField] private GameObject territoryGridSquareObject;
 
+    [SerializeField] private List<Item> candidateDropItems;
+
     private Square selectingSquare = null;
     private List<Square> allGridSquares = new List<Square>();
 
