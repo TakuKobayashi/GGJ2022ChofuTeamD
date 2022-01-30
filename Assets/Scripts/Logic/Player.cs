@@ -30,4 +30,15 @@ public class Player
             }
         }
     }
+
+    public void LostPiece(Piece willLostPiece)
+    {
+        Debug.Log(string.Format("beforePieces:{0}", currentPieces.Count));
+        if (currentPieces.Remove(willLostPiece))
+        {
+            GameObject.Destroy(willLostPiece.gameObject);
+        }
+        Debug.Log(string.Format("afterPieces:{0}", currentPieces.Count));
+
+    }
 }
