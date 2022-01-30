@@ -99,6 +99,11 @@ public abstract class Piece : MonoBehaviour
 					{
 						this.owner.LostPiece(this);
 					}
+                    // 白旗を持っていたら寝返る
+					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Flag)
+					{
+						//this.owner.SpawnPiece(, battlePiece.gameObject, false);
+					}
 				}
 				oppositePlayer.LostPiece(battlePiece);
 				SePlayManager.PlaySeSound(SePlayManager.SE.attack);
@@ -112,6 +117,11 @@ public abstract class Piece : MonoBehaviour
 					if (this.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
 					{
 						oppositePlayer.LostPiece(battlePiece);
+					}
+					// 白旗を持っていたら寝返る
+					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Flag)
+					{
+						//this.owner.SpawnPiece(, battlePiece.gameObject, false);
 					}
 				}
 				this.owner.LostPiece(this);
