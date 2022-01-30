@@ -7,6 +7,8 @@ public class GameTransfer : MonoBehaviour
     [SerializeField] string[] loadScenes;
     SoundManager.Handle bgm_handle;
 
+    public float time = 0;
+    public float timer = 2;
 
     // Start is called before the first frame update
     void Start()
@@ -21,11 +23,15 @@ public class GameTransfer : MonoBehaviour
     // Update is called once per frame
     void Update()
     {
-        if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButton(0) || Input.GetMouseButton(1))
+        if (timer < time)
         {
-            if(bottonDown==false)
-                StartCoroutine("Go");
+            if (Input.GetKeyDown(KeyCode.Return) || Input.GetMouseButton(0) || Input.GetMouseButton(1))
+            {
+                if (bottonDown == false)
+                    StartCoroutine("Go");
+            }
         }
+        time += Time.deltaTime;
     }
 
 

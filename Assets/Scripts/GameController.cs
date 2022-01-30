@@ -59,7 +59,14 @@ public class GameController : SingletonBehaviour<GameController>
         }
     }
 
-    public bool isMyTurn()
+    public void SpawnPieaces(List<Square> allGridSquares)
+	{
+		myPlayer.SpawnPieaces(allGridSquares, false);
+		opponentPlayer.SpawnPieaces(allGridSquares, true);
+	}
+
+
+	public bool isMyTurn()
     {
         return currentTurnPlayer == myPlayer;
     }

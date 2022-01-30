@@ -17,7 +17,7 @@ public class Player
         return territoryPositions.Exists(tp => tp.x == x && tp.y == y);
     }
 
-    public void SpawnPieaces(List<Square> allGridSquares)
+    public void SpawnPieaces(List<Square> allGridSquares, bool isReverse)
     {
         foreach(PiecePosition piecePosition in defaultPieces)
         {
@@ -25,6 +25,10 @@ public class Player
             if(gridSquare != null)
             {
                 Piece piece = ComponentUtil.InstantiateTo<Piece>(gridSquare.gameObject, piecePosition.pieceObj.gameObject);
+				if (isReverse)
+				{
+                    piece.transform.localScale = new Vector3(-piece.transform.localScale.x, piece.transform.localScale.y, piece.transform.localScale.z);
+				}
                 piece.Initialize(this, gridSquare.boardPosition.x, gridSquare.boardPosition.y);
                 this.currentPieces.Add(piece);
             }
