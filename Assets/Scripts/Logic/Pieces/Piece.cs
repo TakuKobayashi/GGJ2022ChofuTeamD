@@ -13,7 +13,7 @@ public abstract class Piece : MonoBehaviour
     [SerializeField] protected List<BoardPosition> defaultMovableBoardPositions;
 
     protected Player owner;
-	protected Item equippingItem = null;
+	public Item EquippingItem { private set; get; }
 
     public BoardPosition CurrentPosition { private set; get; }
 
@@ -28,7 +28,9 @@ public abstract class Piece : MonoBehaviour
         List<Piece> myPieses = this.owner.CurrentPieces;
         Player oppositePlayer = GameController.Instance.OppositePlayer(this.owner);
         List<Square> pieceMovableSquares = new List<Square>();
-        foreach (BoardPosition boardPosition in defaultMovableBoardPositions)
+
+		List<BoardPosition> movableBoardPosirtions = new List<BoardPosition>(defaultMovableBoardPositions);
+		foreach (BoardPosition boardPosition in movableBoardPosirtions)
         {
             int willMoveX = CurrentPosition.x + boardPosition.x;
             int willMoveY = CurrentPosition.y + boardPosition.y;
@@ -71,16 +73,16 @@ public abstract class Piece : MonoBehaviour
 	{
 		item.transform.parent = this.transform;
 		item.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
-		this.equippingItem = item;
+		this.EquippingItem = item;
 	}
 
 	public void LostItem()
 	{
-		if (this.equippingItem != null)
+		if (this.EquippingItem != null)
 		{
-			GameObject.Destroy(this.equippingItem.gameObject);
+			GameObject.Destroy(this.EquippingItem.gameObject);
 		}
-		this.equippingItem = null;
+		this.EquippingItem = null;
 	}
 
 	private void executeBattleResult(Square willMoveToSquare)
@@ -88,64 +90,74 @@ public abstract class Piece : MonoBehaviour
         Player oppositePlayer = GameController.Instance.OppositePlayer(this.owner);
         // 移動先の相手とやり合っても引き分ける時は移動できない
         Piece battlePiece = oppositePlayer.CurrentPieces.Find(piece => piece.CurrentPosition.x == willMoveToSquare.boardPosition.x && piece.CurrentPosition.y == willMoveToSquare.boardPosition.y);
-        if (battlePiece != null)
-        {
+		if (battlePiece != null)
+		{
 			SePlayManager.PlaySeSound(SePlayManager.SE.attack);
-			if (this.judgeOppositePiece(battlePiece) == BattleJudges.Win)
-            {
-                if(battlePiece.equippingItem != null)
+			BattleJudges battleJudge = this.judgeOppositePiece(battlePiece);
+			if (battleJudge == BattleJudges.Win)
+			{
+				if (battlePiece.EquippingItem != null)
 				{
 					// 爆弾持っていたら共倒れ
-					if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
+					if (battlePiece.EquippingItem.CurrentItemTypes == ItemTypes.Bomb)
 					{
 						this.owner.LostPiece(this);
 					}
-                    // 白旗を持っていたら寝返る
-					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Flag)
+					// 白旗を持っていたら寝返る
+					else if (battlePiece.EquippingItem.CurrentItemTypes == ItemTypes.Flag)
 					{
 						//this.owner.SpawnPiece(, battlePiece.gameObject, false);
 					}
 					// 盾を持っていたら死なないでノックバック
-					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Shield)
+					else if (battlePiece.EquippingItem.CurrentItemTypes == ItemTypes.Shield)
 					{
 						// return;
 					}
 					// 棺桶を持っていたら死なないでそこらへんに行く
-					else if (battlePiece.equippingItem.CurrentItemTypes == ItemTypes.Coffin)
+					else if (battlePiece.EquippingItem.CurrentItemTypes == ItemTypes.Coffin)
 					{
 						// return;
 					}
 				}
 				oppositePlayer.LostPiece(battlePiece);
-            }
-            else if (this.judgeOppositePiece(battlePiece) == BattleJudges.Lose)
-            {
+				if (this.EquippingItem != null && this.EquippingItem.CurrentItemTypes == ItemTypes.Axe)
+				{
+					this.LostItem();
+				}
+			}
+			else if (battleJudge == BattleJudges.Lose)
+			{
 				// 爆弾持っていたら共倒れ
-				if (this.equippingItem != null)
+				if (this.EquippingItem != null)
 				{
 					// 爆弾持っていたら共倒れ
-					if (this.equippingItem.CurrentItemTypes == ItemTypes.Bomb)
+					if (this.EquippingItem.CurrentItemTypes == ItemTypes.Bomb)
 					{
 						oppositePlayer.LostPiece(battlePiece);
 					}
 					// 白旗を持っていたら寝返る
-					else if (this.equippingItem.CurrentItemTypes == ItemTypes.Flag)
+					else if (this.EquippingItem.CurrentItemTypes == ItemTypes.Flag)
 					{
 						//oppositePlayer.SpawnPiece(, battlePiece.gameObject, false);
 					}
 					// 盾を持っていたら死なないでノックバック
-					else if (this.equippingItem.CurrentItemTypes == ItemTypes.Shield)
+					else if (this.EquippingItem.CurrentItemTypes == ItemTypes.Shield)
 					{
 						// return;
 					}
 					// 棺桶を持っていたら死なないでそこらへんに行く
-					else if (this.equippingItem.CurrentItemTypes == ItemTypes.Coffin)
+					else if (this.EquippingItem.CurrentItemTypes == ItemTypes.Coffin)
 					{
 						// return;
 					}
 				}
 				this.owner.LostPiece(this);
-            }
-        }
+				if (battlePiece.EquippingItem != null && battlePiece.EquippingItem.CurrentItemTypes == ItemTypes.Axe)
+				{
+					battlePiece.LostItem();
+				}
+
+			}
+		}
     }
 }
