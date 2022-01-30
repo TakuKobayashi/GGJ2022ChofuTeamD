@@ -14,6 +14,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private GameObject gridSquareObject;
     [SerializeField] private GameObject territoryGridSquareObject;
 
+    private Square selectingSquare = null;
     private List<Square> allGridSquares = new List<Square>();
 
     private void GenerateBoardGrid()
@@ -40,7 +41,7 @@ public class BoardController : MonoBehaviour
     // マス目を全て初期状態にする
 	private void ChangeAllSquareNormalState()
 	{
-		GameController.Instance.SelectingSquare = null;
+        this.selectingSquare = null;
 		foreach (Square movableSquare in allGridSquares)
 		{
 			movableSquare.ChangeStateWithGraphic(SquareState.Normal);
@@ -56,13 +57,13 @@ public class BoardController : MonoBehaviour
 			return;
 		}
         Player currentTurnPlayer = GameController.Instance.CurrentTurnPlayer;
-        if (GameController.Instance.SelectingSquare == null)
+        if (this.selectingSquare == null)
 		{
             Piece clickedPiece = currentTurnPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
 			if (clickedPiece != null)
 			{
 				clickedSquare.ChangeStateWithGraphic(SquareState.Selecting);
-                GameController.Instance.SelectingSquare = clickedSquare;
+                this.selectingSquare = clickedSquare;
 				List<Square> movableSquares = clickedPiece.FilterMovableSquares(allGridSquares, currentTurnPlayer.CurrentPieces);
 				foreach (Square movableSquare in movableSquares)
 				{
@@ -74,7 +75,7 @@ public class BoardController : MonoBehaviour
 		{
             if(clickedSquare.CurrentState == SquareState.Movable || clickedSquare.CurrentState == SquareState.MovableHovering)
             {
-                BoardPosition selectingSquareBoardPosition = GameController.Instance.SelectingSquare.boardPosition;
+                BoardPosition selectingSquareBoardPosition = this.selectingSquare.boardPosition;
                 Piece movePiece = currentTurnPlayer.CurrentPieces.Find(p => p.CurrentPosition.x == selectingSquareBoardPosition.x && p.CurrentPosition.y == selectingSquareBoardPosition.y);
                 //Piece oppositePiece = GetOppositeTurnPlayer().CurrentPieces.Find(p => p.CurrentPosition.x == clickedSquare.boardPosition.x && p.CurrentPosition.y == clickedSquare.boardPosition.y);
                 //judgeOppositePiece

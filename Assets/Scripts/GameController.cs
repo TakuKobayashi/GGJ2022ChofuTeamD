@@ -4,7 +4,6 @@ using UnityEngine;
 using UnityEngine.SceneManagement;
 public class GameController : SingletonBehaviour<GameController>
 {
-    public Square SelectingSquare = null;
     private Resut _resut = Resut.Lose;
 
     // 自分の手番
