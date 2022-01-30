@@ -85,12 +85,6 @@ public class BoardController : MonoBehaviour
 		}
 	}
 
-    // 勝利・敗北判定
-    private void judge()
-    {
-//        GetOppositeTurnPlayer
-    }
-
     private void Awake()
     {
         GameController.Instance.LotFirstPlayerTurn();
