@@ -1406,6 +1406,10 @@ MonoBehaviour:
   - {fileID: 21300000, guid: 85345105ba6d6924790068d7f2df7d0d, type: 3}
   tex: {fileID: 1714722087}
   img: {fileID: 108409806}
+  img2:
+  - {fileID: 1030011071}
+  - {fileID: 807232973}
+  - {fileID: 756918222}
 --- !u!4 &1776111341
 Transform:
   m_ObjectHideFlags: 0

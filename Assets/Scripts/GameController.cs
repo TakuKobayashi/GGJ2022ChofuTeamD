@@ -5,7 +5,7 @@ using UnityEngine.SceneManagement;
 public class GameController : SingletonBehaviour<GameController>
 {
     public Square SelectingSquare = null;
-	private Resut _resut = Resut.none;
+	private Resut _resut = Resut.Lose;
 
 	public Resut resut
 	{ get { return _resut;  } }
