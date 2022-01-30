@@ -14,6 +14,7 @@ public class BoardController : MonoBehaviour
     [SerializeField] private GameObject gridSquareObject;
     [SerializeField] private GameObject territoryGridSquareObject;
 
+    [SerializeField] private SpawnItemRange spawnItemRange;
     [SerializeField] private List<Item> candidateDropItems;
 
     private Square selectingSquare = null;
@@ -40,8 +41,20 @@ public class BoardController : MonoBehaviour
         }
     }
 
+    private void LotSpawnItems()
+    {
+		int spawaItemCount = Random.Range(spawnItemRange.SpwanCountMin, spawnItemRange.SpwanCountMax);
+		List<Square> candidateSquares = allGridSquares.FindAll(square => !(square is TerritorySquare));
+        for(int i = 0;i < spawaItemCount; ++i)
+		{
+			int dropSquareIndex = Random.Range(0, (candidateSquares.Count - 1));
+			int dropItemIndex = Random.Range(0, (candidateDropItems.Count - 1));
+			candidateSquares[dropSquareIndex].DropItem(candidateDropItems[dropItemIndex]);
+		}
+    }
+
     // マス目を全て初期状態にする
-	private void ChangeAllSquareNormalState()
+    private void ChangeAllSquareNormalState()
 	{
         this.selectingSquare = null;
 		foreach (Square movableSquare in allGridSquares)
@@ -91,6 +104,7 @@ public class BoardController : MonoBehaviour
     {
         GameController.Instance.LotFirstPlayerTurn();
         GenerateBoardGrid();
+        LotSpawnItems();
         GameController.Instance.SpawnPieaces(allGridSquares);
 		ChangeAllSquareNormalState();
     }

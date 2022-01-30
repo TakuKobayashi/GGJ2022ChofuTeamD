@@ -154,6 +154,9 @@ MonoBehaviour:
   boardGridLayoutGroup: {fileID: 5158562691942253928}
   gridSquareObject: {fileID: 4804833961266466166, guid: dd1cc334bff764a21a605eb4fc44ebe3, type: 3}
   territoryGridSquareObject: {fileID: 4862548392463076704, guid: 928ac0dbd1470461984950f9e5d77ab4, type: 3}
+  spawnItemRange:
+    SpwanCountMin: 4
+    SpwanCountMax: 5
   candidateDropItems:
   - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
   - {fileID: 2124937084375320636, guid: 9657129cab20c4d279ab7610d86691f0, type: 3}
