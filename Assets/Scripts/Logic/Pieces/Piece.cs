@@ -13,6 +13,8 @@ public abstract class Piece : MonoBehaviour
     [SerializeField] protected List<BoardPosition> defaultMovableBoardPositions;
 
     protected Player owner;
+	protected Item equippingItem = null;
+
     public BoardPosition CurrentPosition { private set; get; }
 
     public void Initialize(Player owner, int positionX, int positionY)
@@ -60,8 +62,17 @@ public abstract class Piece : MonoBehaviour
         ComponentUtil.Normalize(this.transform);
         this.transform.localScale = prevLocalScale;
         this.CurrentPosition = moveToSquare.boardPosition;
-        this.executeBattleResult(moveToSquare);
+
+		moveToSquare.CaptureItem(this);
+		this.executeBattleResult(moveToSquare);
     }
+
+    public void EquipItem(Item item)
+	{
+		item.transform.parent = this.transform;
+		item.transform.localScale = new Vector3(0.1f, 0.1f, 0.1f);
+		this.equippingItem = item;
+	}
 
     private void executeBattleResult(Square willMoveToSquare)
     {
