@@ -9,7 +9,13 @@ public class ResultManager : MonoBehaviour
     private string[] ResultString = { "Ÿ—˜", "”s–k", "ˆø‚«•ª‚¯" };
 
     [SerializeField]
+    private Sprite[] ResultSp ;
+
+    [SerializeField]
     private Text tex;
+
+    [SerializeField]
+    private Image img;
     // Start is called before the first frame update
     void Start()
     {
@@ -18,10 +24,12 @@ public class ResultManager : MonoBehaviour
             case Resut.Win:
                 tex.text = ResultString[(int)Resut.Win];
                 SePlayManager.PlaySeSound(SePlayManager.SE.victory_se);
+                img.sprite = ResultSp[(int)Resut.Win];
                 break;
             case Resut.Lose:
                 tex.text = ResultString[(int)Resut.Lose];
                 SePlayManager.PlaySeSound(SePlayManager.SE.defeat_se);
+                img.sprite = ResultSp[(int)Resut.Lose];
                 break;
             default:
             case Resut.draw:

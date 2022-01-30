@@ -1062,7 +1062,7 @@ RectTransform:
   m_LocalEulerAnglesHint: {x: 0, y: 0, z: 0}
   m_AnchorMin: {x: 1, y: 0.5}
   m_AnchorMax: {x: 1, y: 0.5}
-  m_AnchoredPosition: {x: -195.38998, y: -50}
+  m_AnchoredPosition: {x: -195.38995, y: -50}
   m_SizeDelta: {x: 1300, y: 1200}
   m_Pivot: {x: 0.5, y: 0.5}
 --- !u!114 &1030011071
@@ -1407,7 +1407,11 @@ MonoBehaviour:
   - "\u52DD\u5229"
   - "\u6557\u5317"
   - "\u5F15\u304D\u5206\u3051"
+  ResultSp:
+  - {fileID: 21300000, guid: 22828cb6f586445459e0d14106e543fe, type: 3}
+  - {fileID: 21300000, guid: 85345105ba6d6924790068d7f2df7d0d, type: 3}
   tex: {fileID: 1714722087}
+  img: {fileID: 108409806}
 --- !u!4 &1776111341
 Transform:
   m_ObjectHideFlags: 0
