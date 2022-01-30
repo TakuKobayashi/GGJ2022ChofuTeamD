@@ -41,6 +41,8 @@ public abstract class Piece : MonoBehaviour
         return pieceMovableSquares;
     }
 
+    abstract public BattleJudges judgeOppositePiece(Piece oppositePiece);
+
     public void Move(Square moveToSquare)
     {
         this.transform.parent = moveToSquare.transform;
