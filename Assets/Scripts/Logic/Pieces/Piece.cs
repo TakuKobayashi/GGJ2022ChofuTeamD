@@ -58,5 +58,24 @@ public abstract class Piece : MonoBehaviour
         this.transform.parent = moveToSquare.transform;
         ComponentUtil.Normalize(this.transform);
         this.CurrentPosition = moveToSquare.boardPosition;
+        this.executeBattleResult(moveToSquare);
+    }
+
+    private void executeBattleResult(Square willMoveToSquare)
+    {
+        Player oppositePlayer = GameController.Instance.OppositePlayer(this.owner);
+        // 移動先の相手とやり合っても引き分ける時は移動できない
+        Piece battlePiece = oppositePlayer.CurrentPieces.Find(piece => piece.CurrentPosition.x == willMoveToSquare.boardPosition.x && piece.CurrentPosition.y == willMoveToSquare.boardPosition.y);
+        if (battlePiece != null)
+        {
+            if(this.judgeOppositePiece(battlePiece) == BattleJudges.Win)
+            {
+                oppositePlayer.LostPiece(battlePiece);
+            }
+            else if (this.judgeOppositePiece(battlePiece) == BattleJudges.Lose)
+            {
+                this.owner.LostPiece(this);
+            }
+        }
     }
 }
